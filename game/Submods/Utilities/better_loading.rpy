@@ -18,20 +18,10 @@ init -989 python in bl_utils:
             submod=store.mas_submod_utils.bl_submod,
             user_name="multimokia",
             repository_name="MAS-Util-Better-Loading",
-            tag_formatter=tagparser,
+            tag_formatter=lambda x: x[x.index('_') + 1:],
             update_dir="",
             attachment_id=None,
         )
-
-init -999 python in bl_utils:
-    def tagparser(tag):
-        """
-        Tag formatter for GH tags
-
-        IN:
-            tag - raw tag to parse to clean
-        """
-        return tag[tag.index('_') + 1:]
 
 python early:
     def bl_load(name, tl=True):
