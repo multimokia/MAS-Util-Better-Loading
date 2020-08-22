@@ -24,7 +24,7 @@ init -989 python in bl_utils:
         )
 
 python early:
-    def bl_load(name, tl=True):
+    def bl_load(name):
         """
         Base loader function
         """
