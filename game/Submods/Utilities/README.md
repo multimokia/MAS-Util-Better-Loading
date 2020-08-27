@@ -15,3 +15,8 @@
   - All UNIX paths ***start*** with `/`, and as such, their paths break. For example, `/home/user/Desktop/...` turns into `home/user/Desktop/...`. Which isn't valid.
 
 - Windows gets away with this because of its *drive letters*. Since `C:/Users/User/Desktop/...` doesn't start with `/`, it doesn't change, making the path valid.
+
+This utility is compatible with the [Submod Updater Plugin](https://github.com/Booplicate/MAS-Submods-SubmodUpdaterPlugin/releases/latest)! Give it an install to make updating this utility easier.
+
+### Please report any and all problems in the `issues` tab.
+###### Thank you
