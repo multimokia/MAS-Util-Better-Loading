@@ -24,16 +24,25 @@ init -989 python in bl_utils:
         )
 
 python early:
-    def bl_load(name):
+    __is_r7 = renpy.version(True)[0] == 7
+
+    def bl_load(name, **kwargs):
         """
         Base loader function
         """
+        if __is_r7:
+            if "tl" not in kwargs:
+                kwargs["tl"] = True
+
+            if renpy.display.predict.predicting and threading.current_thread().name == "MainThread":
+                raise Exception("Refusing to open {} while predicting.".format(name))
+
         #Clear out the backslash here
         name = name.replace('\\', '/')
 
         name = renpy.re.sub(r'/+', '/', name)
 
-        for p in renpy.loader.get_prefixes():
+        for p in renpy.loader.get_prefixes(**kwargs):
             rv = renpy.loader.load_core(p + name)
             if rv is not None:
                 return rv
@@ -75,6 +84,9 @@ python early:
                 True if loadable
                 False otherwise
         """
+        if __is_r7 and renpy.config.loadable_callback is not None and renpy.config.loadable_callback(name):
+            return True
+
         for p in renpy.loader.get_prefixes():
             if renpy.loader.loadable_core(p + name):
                 return True
